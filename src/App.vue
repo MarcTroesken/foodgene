@@ -1,21 +1,27 @@
 <template>
     <div id="app">
-        <ingredients></ingredients>
+        <ingredient-preview :selected.sync="selected"></ingredient-preview>
+        <ingredients :selected.sync="selected"></ingredients>
+
+        <pre>
+            {{ $data | json }}
+        </pre>
     </div>
 </template>
 
 <script>
 import Ingredients from './components/Ingredients.vue';
+import IngredientPreview from './components/IngredientPreview.vue';
 
 export default {
-    components: { Ingredients }
+    data() {
+        return {
+            selected: ''
+        }
+    },
+
+    components: { Ingredients, IngredientPreview }
 }
 </script>
 
-<style>
-@import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,700);
-body {
-    font-family: Lato;
-    background: #F0F0F0;
-}
-</style>
+<style lang="sass" src="../dist/sass/style.scss"></style>

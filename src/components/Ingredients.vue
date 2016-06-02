@@ -1,160 +1,105 @@
 <template>
     <div class="Chooser">
         <div class="Category-Switch">
-            <div class="two-thirds column">
+            <div class="col-md-8">
                 <ul class="Categories">
-                    <li><a href="#">Kategorie 1</a></li>
-                    <li><a href="#">Kategorie 2</a></li>
-                    <li><a href="#">Kategorie 3</a></li>
-                    <li><a href="#">Kategorie 4</a></li>
-                    <li><a href="#">Kategorie 5</a></li>
+                    <li v-for="category in categories">
+                        <a href="#" @click="selectCategtory(category)">{{ category.name }}</a>
+                    </li>
                 </ul>
             </div>
-            <div class="one-third column">
+            <div class="col-md-4">
                 <div class="Search">
-                    <input class="u-full-width" type="text" placeholder="Suche nach Zutat ...">
+                    <input
+                        class="form-control"
+                        type="text"
+                        v-model="query"
+                        placeholder="Suche nach Zutat ..."
+                    />
                 </div>
             </div>
         </div>
         <div class="Ingredients">
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
+            <a
+                href="#"
+                class="Ingredient"
+                @click="selectIngredient(ingredient)"
+                v-for="ingredient in ingredients | filterBy query"
+            >
+                <img class="Ingredient__Image" src="{{ ingredient.image }}" alt="{{ ingredient.name }}">
                 <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
-            </a>
-            <a href="#" class="Ingredient">
-                <img class="Ingredient__Image" src="http://placehold.it/100x100" alt="Placeholder">
-                <br />
-                <span class="Ingredient__Title">Zutat</span>
+                <span class="Ingredient__Title">{{ ingredient.name }}</span>
             </a>
         </div>
     </div>
 </template>
 
 <script>
+    import config from '../../config.js';
     export default {
+        props: ['selected'],
 
+        data() {
+            return {
+                query: '',
+                category: '',
+                ingredients: [],
+                categories: []
+            }
+        },
+
+        ready() {
+            this.getCategories();
+        },
+
+        methods: {
+            getCategories() {
+                // this.$http.get(config.categoriesUrl).then(res => {
+                //     this.categories = res.data;
+                //     this.category = this.categories[0];
+                //     this.ingredients = this.categories[0].ingredients;
+                // });
+
+                // Fake data
+                this.categories = [
+                    {id: 1, name: 'Kategorie 1', ingredients: [
+                        {id: 1, image: 'http://placehold.it/150x150', name: 'Zutat 1'},
+                        {id: 2, image: 'http://placehold.it/150x150', name: 'Zutat 2'},
+                        {id: 3, image: 'http://placehold.it/150x150', name: 'Zutat 3'},
+                        {id: 4, image: 'http://placehold.it/150x150', name: 'Zutat 4'},
+                        {id: 5, image: 'http://placehold.it/150x150', name: 'Zutat 5'},
+                        {id: 6, image: 'http://placehold.it/150x150', name: 'Zutat 6'},
+                        {id: 7, image: 'http://placehold.it/150x150', name: 'Zutat 7'},
+                        {id: 8, image: 'http://placehold.it/150x150', name: 'Zutat 8'},
+                        {id: 9, image: 'http://placehold.it/150x150', name: 'Zutat 9'}
+                    ]},
+                    {id: 2, name: 'Kategorie 2', ingredients: [
+                        {id: 1, image: 'http://placehold.it/150x150', name: 'Schinken 1'},
+                        {id: 2, image: 'http://placehold.it/150x150', name: 'Schinken 2'},
+                        {id: 3, image: 'http://placehold.it/150x150', name: 'Schinken 3'},
+                        {id: 4, image: 'http://placehold.it/150x150', name: 'Schinken 4'},
+                        {id: 5, image: 'http://placehold.it/150x150', name: 'Schinken 5'},
+                        {id: 6, image: 'http://placehold.it/150x150', name: 'Schinken 6'},
+                        {id: 7, image: 'http://placehold.it/150x150', name: 'Schinken 7'},
+                        {id: 8, image: 'http://placehold.it/150x150', name: 'Schinken 8'},
+                        {id: 9, image: 'http://placehold.it/150x150', name: 'Schinken 9'}
+                    ]},
+                    {id: 3, name: 'Kategorie 3'},
+                    {id: 4, name: 'Kategorie 4'},
+                    {id: 5, name: 'Kategorie 5'},
+                    {id: 6, name: 'Kategorie 6'}
+                ];
+
+                this.category = this.categories[0];
+                this.ingredients = this.categories[0].ingredients;
+            },
+            selectIngredient(ingredient) {
+                this.selected = ingredient;
+            },
+            selectCategtory(category) {
+                this.category = category;
+                this.ingredients = category.ingredients;
+            }
+        }
     }
 </script>
-
-<style>
-    .input.u-full-width {
-        margin-bottom: 0;
-    }
-    .Category-Switch {
-        bottom: 176px;
-        position: fixed;
-        width: 100%;
-    }
-    .Categories {
-        list-style: none;
-        margin: 0;
-        margin-left: 30px;
-        padding: 0;
-    }
-    .Categories > li {
-        display: inline-block;
-        margin-right: 20px;
-    }
-    .Categories > li:last-child {
-        margin-right: 0;
-    }
-    .Search {
-        padding-right: 30px;
-    }
-    .Ingredients {
-        width: 100%;
-        max-height: 176px;
-        border-top: 1px solid lightgrey;
-        bottom: 0;
-        position: fixed;
-        background: #fff;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        padding: 30px 30px 15px 30px;
-        white-space: nowrap;
-    }
-    .Ingredient {
-        display: inline-block;
-        text-align: center;
-        width: 100px;
-        margin-right: 20px;
-    }
-    .Ingredient:last-child {
-        margin-right: 0;
-    }
-    .Ingredient__Image {
-        width: 100px;
-        height: 100px;
-        margin: 0;
-    }
-    .Ingredient__Title {
-        font-size: 15px;
-        line-height: 15px;
-    }
-</style>

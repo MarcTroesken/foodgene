@@ -1,0 +1,70 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,700);
+
+body {
+    font-family: Lato;
+    background: #F0F0F0;
+
+    .input.u-full-width {
+        margin-bottom: 0;
+    }
+
+    .Category-Switch {
+        bottom: 236px;
+        position: fixed;
+        width: 100%;
+    }
+    .Categories {
+        list-style: none;
+        margin: 0;
+        padding: 8px 0 0 0;
+    }
+    .Categories > li {
+        display: inline-block;
+        margin-right: 20px;
+    }
+    .Categories > li:last-child {
+        margin-right: 0;
+    }
+    .Search {
+        padding-bottom: 10px;
+    }
+    .Ingredients {
+        width: 100%;
+        //max-height: 176px;
+        border-top: 1px solid lightgrey;
+        bottom: 0;
+        position: fixed;
+        background: #fff;
+        overflow-x: scroll;
+        overflow-y: hidden;
+        padding: 30px 15px 15px 15px;
+        white-space: nowrap;
+    }
+    .Ingredient {
+        display: inline-block;
+        text-align: center;
+        width: 150px;
+        margin-right: 20px;
+    }
+    .Ingredient:last-child {
+        margin-right: 0;
+    }
+    .Ingredient__Image {
+        width: 150px;
+        height: 150px;
+        margin: 0 0 5px 0;
+    }
+    .Ingredient__Title {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .Preview-Container {
+        padding: 15px 0;
+
+        .Preview__Image {
+            float: left;
+            margin-right: 30px;
+        }
+    }
+}
