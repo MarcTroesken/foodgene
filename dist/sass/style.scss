@@ -1,70 +1,324 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,100,300,700);
+$green: #1abc9c;
+$white: #fff;
+$lightgrey: #eee;
+$black: #666;
+$main: #9b59b6;
+$greyDarker: #c4c4c4;
+$background: #F5F5F5;
+$red: #e74c3c;
 
 body {
     font-family: Lato;
-    background: #F0F0F0;
+    background: $background;
 
-    .input.u-full-width {
+    a {
+        color: $black;
+        &:hover {
+            color: $main;
+        }
+    }
+
+    .form-control {
         margin-bottom: 0;
+        border-radius: 2px;
     }
 
-    .Category-Switch {
-        bottom: 236px;
-        position: fixed;
-        width: 100%;
+    .btn-success {
+        background: $white;
+        border-color: $green;
+        color: $green;
+        border-radius: 2px;
+        &:hover, &:focus {
+            color: $white;
+            background: $green;
+            border-color: $green;
+        }
     }
-    .Categories {
-        list-style: none;
-        margin: 0;
-        padding: 8px 0 0 0;
+
+    .btn-danger {
+        background: $white;
+        border-color: $red;
+        color: $red;
+        border-radius: 2px;
+        &:hover, &:focus {
+            color: $white;
+            background: $red;
+            border-color: $red;
+        }
     }
-    .Categories > li {
-        display: inline-block;
-        margin-right: 20px;
-    }
-    .Categories > li:last-child {
-        margin-right: 0;
-    }
-    .Search {
-        padding-bottom: 10px;
-    }
+
     .Ingredients {
         width: 100%;
-        //max-height: 176px;
         border-top: 1px solid lightgrey;
         bottom: 0;
         position: fixed;
-        background: #fff;
+        background: $white;
         overflow-x: scroll;
         overflow-y: hidden;
-        padding: 30px 15px 15px 15px;
+        padding: 15px;
         white-space: nowrap;
+        margin-left: -15px;
     }
     .Ingredient {
         display: inline-block;
         text-align: center;
         width: 150px;
         margin-right: 20px;
+        background: #eee;
+        border: 2px solid $greyDarker;
+        &.selected {
+            border: 2px solid $main;
+        }
     }
     .Ingredient:last-child {
         margin-right: 0;
     }
     .Ingredient__Image {
-        width: 150px;
-        height: 150px;
+        width: 146px;
+        height: 146px;
         margin: 0 0 5px 0;
     }
     .Ingredient__Title {
         font-size: 16px;
-        line-height: 18px;
+        line-height: 16px;
+        padding: 15px;
+    }
+    .Categories > li {
+        display: inline-block;
+        padding-right: 10px;
+        padding-left: 10px;
+        border-right: 1px solid $greyDarker;
+
+        a {
+            text-transform: uppercase;
+        }
+
+        &:first-child {
+            border-left: 1px solid #c4c4c4;
+        }
+    }
+    .Categories > li:last-child {
+        margin-right: 0;
     }
 
-    .Preview-Container {
-        padding: 15px 0;
+    @media (max-width: 768px) {
+        .Categories {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 10px 0;
+        }
+        .Category-Switch {
+            bottom: 206px;
+            position: fixed;
+            width: 99.9%;
+        }
+        .Search {
+            padding-bottom: 5;
+        }
+        .Preview-Container {
+            text-align: center;
+            padding-top: 20px;
 
-        .Preview__Image {
-            float: left;
-            margin-right: 30px;
+            .Preview__Image {
+                max-width: 150px;
+                max-height: 150px;
+                margin: 0 auto;
+            }
+
+            .Preview__Match {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                h2 {
+                    margin: 0;
+                }
+                span {
+                    margin: 0
+                }
+            }
+
+            .Preview__Text {
+                p {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .Categories {
+            list-style: none;
+            margin: 0;
+            padding: 0 0 10px 0;
+        }
+        .Category-Switch {
+            bottom: 206px;
+            position: fixed;
+            width: 99.9%;
+        }
+        .Preview-Container {
+            padding: 35px 0;
+            text-align: left;
+
+            .Preview__Image {
+                max-width: 250px;
+                max-height: 250px;
+                float: left;
+                margin-right: 30px;
+            }
+
+            .Preview__Text {
+                p {
+                    font-size: 15px;
+                }
+            }
+        }
+        .Mix-Container{
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            .Mix__Match {
+                font-size: 5.5rem;
+            }
+            .Mix__List {
+                text-align: left;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-bottom: none;
+                padding: 20px;
+                background: $white;
+                height: 150px;
+                overflow-x: hidden;
+                overflow-y: scroll;
+
+                ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+
+                    li {
+                        padding: 5px 10px;
+                        margin-bottom: 5px;
+                        background: #eee;
+
+                        .Mix__List-Item {
+                            line-height: 25px;
+                            vertical-align: middle;
+                        }
+
+                        .delete {
+                            float: right;
+                            line-height: 25px;
+                            vertical-align: middle;
+                        }
+
+                        .Mix__Image {
+                            width: 25px;
+                            height: 25px;
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+            .Mix__Cart {
+                width: 100%;
+                border: 1px solid #ccc;
+                border-top: none;
+                padding: 10px 20px 20px 20px;
+                background: $white;
+            }
+        }
+    }
+
+    @media (min-width: 992px) {
+        .Categories {
+            list-style: none;
+            margin: 0;
+            padding: 9px 0 0 0;
+        }
+        .Category-Switch {
+            bottom: 206px;
+            position: fixed;
+            width: 100%;
+        }
+        .Preview-Container {
+            padding: 35px 0;
+
+            h2 {
+                margin: 0 0 15px 0;
+            }
+
+            .Preview__Image {
+                float: left;
+                margin-right: 30px;
+                max-width: 300px;
+                max-height: 300px;
+            }
+        }
+
+        .Mix-Container {
+            text-align: right;
+
+            .Mix__Match {
+                font-size: 5.5rem;
+            }
+            .Mix__List {
+                text-align: left;
+                width: 90%;
+                border: 1px solid #ccc;
+                border-bottom: none;
+                float: right;
+                padding: 20px 5px 20px 20px;
+                background: $white;
+                height: 150px;
+                overflow-x: hidden;
+                overflow-y: scroll;
+
+                ul {
+                    margin: 0;
+                    padding: 0;
+                    list-style: none;
+
+                    li {
+                        padding: 5px 10px;
+                        margin-bottom: 5px;
+                        background: #eee;
+
+                        .Mix__List-Item {
+                            line-height: 25px;
+                            vertical-align: middle;
+                        }
+
+                        .delete {
+                            float: right;
+                            line-height: 25px;
+                            vertical-align: middle;
+                        }
+
+                        .Mix__Image {
+                            width: 25px;
+                            height: 25px;
+                            margin-right: 5px;
+                        }
+                    }
+                }
+            }
+            .Mix__Cart {
+                width: 90%;
+                border: 1px solid #ccc;
+                border-top: none;
+                float: right;
+                padding: 10px 20px 20px 20px;
+                background: $white;
+            }
+        }
+    }
+
+    @media (min-width: 1025px) {
+        .Search {
+            padding-bottom: 10px;
         }
     }
 }

@@ -1,32 +1,37 @@
 <template>
     <div class="Chooser">
-        <div class="Category-Switch">
-            <div class="col-md-8">
-                <ul class="Categories">
-                    <li v-for="category in categories">
-                        <a href="#" @click="selectCategtory(category)">{{ category.name }}</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <div class="Search">
-                    <input
-                        class="form-control"
-                        type="text"
-                        v-model="query"
-                        placeholder="Suche nach Zutat ..."
-                    />
+        <div class="row Category-Switch">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="row">
+                    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+                        <ul class="Categories">
+                            <li v-for="category in categories">
+                                <a href="#" @click="selectCategtory(category, $event)">{{ category.name }}</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+                        <div class="Search form-group">
+                            <input
+                                class="form-control"
+                                type="text"
+                                v-model="query"
+                                placeholder="Search for ingredients ..."
+                            />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="Ingredients">
             <a
                 href="#"
-                class="Ingredient"
+                class="Ingredient clearfix"
+                :class="inMix(ingredient) ? 'selected' : ''"
                 @click="selectIngredient(ingredient)"
                 v-for="ingredient in ingredients | filterBy query"
             >
-                <img class="Ingredient__Image" src="{{ ingredient.image }}" alt="{{ ingredient.name }}">
+                <img class="Ingredient__Image" :src="ingredient.image" alt="{{ ingredient.name }}">
                 <br />
                 <span class="Ingredient__Title">{{ ingredient.name }}</span>
             </a>
@@ -36,8 +41,9 @@
 
 <script>
     import config from '../../config.js';
+    import Stub from '../../stubs.js';
     export default {
-        props: ['selected'],
+        props: ['selected', 'mix'],
 
         data() {
             return {
@@ -58,47 +64,27 @@
                 //     this.categories = res.data;
                 //     this.category = this.categories[0];
                 //     this.ingredients = this.categories[0].ingredients;
+                //     this.selected = this.ingredients[0];
                 // });
 
-                // Fake data
-                this.categories = [
-                    {id: 1, name: 'Kategorie 1', ingredients: [
-                        {id: 1, image: 'http://placehold.it/150x150', name: 'Zutat 1'},
-                        {id: 2, image: 'http://placehold.it/150x150', name: 'Zutat 2'},
-                        {id: 3, image: 'http://placehold.it/150x150', name: 'Zutat 3'},
-                        {id: 4, image: 'http://placehold.it/150x150', name: 'Zutat 4'},
-                        {id: 5, image: 'http://placehold.it/150x150', name: 'Zutat 5'},
-                        {id: 6, image: 'http://placehold.it/150x150', name: 'Zutat 6'},
-                        {id: 7, image: 'http://placehold.it/150x150', name: 'Zutat 7'},
-                        {id: 8, image: 'http://placehold.it/150x150', name: 'Zutat 8'},
-                        {id: 9, image: 'http://placehold.it/150x150', name: 'Zutat 9'}
-                    ]},
-                    {id: 2, name: 'Kategorie 2', ingredients: [
-                        {id: 1, image: 'http://placehold.it/150x150', name: 'Schinken 1'},
-                        {id: 2, image: 'http://placehold.it/150x150', name: 'Schinken 2'},
-                        {id: 3, image: 'http://placehold.it/150x150', name: 'Schinken 3'},
-                        {id: 4, image: 'http://placehold.it/150x150', name: 'Schinken 4'},
-                        {id: 5, image: 'http://placehold.it/150x150', name: 'Schinken 5'},
-                        {id: 6, image: 'http://placehold.it/150x150', name: 'Schinken 6'},
-                        {id: 7, image: 'http://placehold.it/150x150', name: 'Schinken 7'},
-                        {id: 8, image: 'http://placehold.it/150x150', name: 'Schinken 8'},
-                        {id: 9, image: 'http://placehold.it/150x150', name: 'Schinken 9'}
-                    ]},
-                    {id: 3, name: 'Kategorie 3'},
-                    {id: 4, name: 'Kategorie 4'},
-                    {id: 5, name: 'Kategorie 5'},
-                    {id: 6, name: 'Kategorie 6'}
-                ];
-
+                // Fake Data !!
+                this.categories = Stub.categories;
                 this.category = this.categories[0];
                 this.ingredients = this.categories[0].ingredients;
+                this.selected = this.ingredients[0];
             },
             selectIngredient(ingredient) {
                 this.selected = ingredient;
             },
-            selectCategtory(category) {
+            selectCategtory(category, event) {
                 this.category = category;
                 this.ingredients = category.ingredients;
+                event.srcElement.blur();
+            },
+            inMix(ingredient) {
+                if(this.mix.indexOf(ingredient) > -1) {
+                    return true;
+                }
             }
         }
     }
