@@ -41,7 +41,7 @@
 
 <script>
     import config from '../../config.js';
-    import Stub from '../../stubs.js';
+    // import Stub from '../../stubs.js';
     export default {
         props: ['selected', 'mix'],
 
@@ -60,18 +60,19 @@
 
         methods: {
             getCategories() {
-                // this.$http.get(config.categoriesUrl).then(res => {
-                //     this.categories = res.data;
-                //     this.category = this.categories[0];
-                //     this.ingredients = this.categories[0].ingredients;
-                //     this.selected = this.ingredients[0];
-                // });
+                this.$http.get(config.categoriesUrl).then(res => {
+                    console.log('Ingredient: ' + res.data);
+                    this.categories = res.data;
+                    this.category = this.categories[0];
+                    this.ingredients = this.categories[0].ingredients;
+                    this.selected = this.ingredients[0];
+                });
 
                 // Fake Data !!
-                this.categories = Stub.categories;
-                this.category = this.categories[0];
-                this.ingredients = this.categories[0].ingredients;
-                this.selected = this.ingredients[0];
+                // this.categories = Stub.categories;
+                // this.category = this.categories[0];
+                // this.ingredients = this.categories[0].ingredients;
+                // this.selected = this.ingredients[0];
             },
             selectIngredient(ingredient) {
                 this.selected = ingredient;

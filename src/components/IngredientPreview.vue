@@ -38,7 +38,6 @@
         methods: {
             addToMix(ingredient, event) {
                 if(this.mix.indexOf(ingredient) == -1) {
-                    this.getIngredientFromApi(ingredient);
                     this.mix.push(ingredient);
                     event.srcElement.blur();
                 }
@@ -51,17 +50,7 @@
                 if(this.mix.indexOf(ingredient) == -1) {
                     return true;
                 }
-            },
-            // getIngredientFromApi(ingredient) {
-            //     this.$http.get('https://api.foodpairing.com/ingredients?q=Apple', null, [{
-            //         headers: {
-            //             'X-Application-ID': config.foodpairingId,
-            //             'X-Application-Key': config.foodpairingKey,
-            //             'Access-Control-Allow-Origin': 'http://ad73c6ee.ngrok.io/'
-            //         }
-            //     }])
-            //     .then(result => console.log(result), resposne => console.log(resposne));
-            // }
+            }
         }
     }
 </script>

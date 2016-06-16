@@ -46,6 +46,7 @@
                 if(this.mix.length > 0) {
                     this.$http.post(config.cartUrl, this.mix)
                     .then(res => {
+                        console.log(res.data);
                         this.mix = [];
                         event.srcElement.blur();
                     });
